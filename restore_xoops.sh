@@ -10,7 +10,22 @@ CHC_IP=163.23.200.43
 function getIP_Public(){
   IP_Public=`ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\." | head -n 1`
   if [[ "$IP_Public" = "" ]]; then
-      IP_Public=`curl -s -4 icanhazip.com`
+      while [[ "$IP_Public" == "" ]]; do
+        IP_Public=`curl -s -4 icanhazip.com`
+        if [[ "$IP" != "" ]]; then
+            break
+        fi
+
+        IP_Public=`curl -s -4 ipecho.net/plain`
+        if [[ "$IP" != "" ]]; then
+            break
+        fi
+
+        IP_Public=`curl -s -4 ifconfig.me`
+        if [[ "$IP" != "" ]]; then
+            break
+        fi
+    done
   fi
 }
 
