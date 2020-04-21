@@ -1,9 +1,0 @@
-- name: "STEP 1 - CONNECT TO NODE BY TEST"
-  hosts: all
-  tasks:
-    - name: "PING"
-      ping:
-      register: message
-    - name: "RESULT"
-      debug:
-        msg: "{{ message }}"
