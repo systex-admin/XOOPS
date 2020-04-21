@@ -15,12 +15,11 @@
 
     cd /root
     yum install -y unzip wget
-    wget --no-check-certificate https://github.com/xichiou/lamp-xoops/archive/master.zip -O lamp-xoops.zip
+    wget --no-check-certificate https://github.com/systex-admin/XOOPS/archive/master.zip -O lamp-xoops.zip
     unzip -o lamp-xoops.zip
     rm -f lamp-xoops.zip
     cd lamp-xoops-master/
     chmod +x *.sh
-    clear;
 
 ### 2. 安裝 LAMP 套件成為網頁伺服器
 #### 這個步驟只適合還沒安裝Apache+MySQL+PHP，因此這個步驟最多只要執行一次
@@ -41,51 +40,35 @@
 ### A. 切換 PHP 版本
 
     ./change_php.sh
----
-### B. 沒安裝過 網路芳鄰分享功能，現在想要安裝
 
-    ./install_samba.sh
 ---
-### C. 沒安裝過 Google雲端備份資料的功能，現在想要安裝
-
-    ./install_grive.sh
----
-### D. 重新下載自動化腳本，作用與前面步驟1相同
+### B. 重新下載自動化腳本，作用與前面步驟1相同
 
     ./update.sh
 ---
-### E. 檢查XOOPS網站運行的版本並且更新
-#### 更新XOOPS核心到2.5.9，[模組]站長工具箱到2.81，[模組]tadtools到3.26和BootStrap4升級補丁，這些是近期最重要的更新
+### C. 檢查XOOPS網站運行的版本並且更新
+#### 更新XOOPS核心到2.5.10或以上，[模組]站長工具箱到2.81或以上，[模組]tadtools到3.26或以上和BootStrap4升級補丁，這些是近期最重要的更新
 
     ./upgrade_xoops.sh
 
-#### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
-    ./upgrade_xoops.sh /var/www/html/xoops
+#### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/XOOPS
+    ./upgrade_xoops.sh /var/www/html/XOOPS
 
 ---
-### F. 顯示您現有的XOOPS網站的各項參數，方便移機用
+### D. 顯示您現有的XOOPS網站的各項參數，方便移機用
 
     ./show_xoops_var.sh
 
-#### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
-    ./show_xoops_var.sh /var/www/html/xoops
-    
-#### 如果在舊機器上不想要安裝本專案全部的腳本，可以用下列指令代替
-    curl -s https://raw.githubusercontent.com/xichiou/lamp-xoops/master/show_xoops_var.sh | bash -s --
-
-#### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
-    curl -s https://raw.githubusercontent.com/xichiou/lamp-xoops/master/show_xoops_var.sh | bash -s -- /var/www/html/xoops
+#### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/XOOPS
+    ./show_xoops_var.sh /var/www/html/XOOPS
 
 ---
-### G. 打包您現有的XOOPS網站的程式、資料庫，做為備份整個網站或是傳輸到遠端新伺服器上
+### E. 打包您現有的XOOPS網站的程式、資料庫，做為備份整個網站或是傳輸到遠端新伺服器上
 
     ./dump_xoops_var.sh
 
-#### 直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
-    curl -s https://raw.githubusercontent.com/xichiou/lamp-xoops/master/dump_xoops.sh | bash -s -- /var/www/html/xoops
-
 ---
-### H. 還原上一步驟的XOOPS網站的程式、資料庫
+### F. 還原上一步驟的XOOPS網站的程式、資料庫
 #### 指定打包好的檔案的資料夾路徑
 
     ./restore_xoops.sh 資料夾路徑
