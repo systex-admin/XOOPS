@@ -22,7 +22,6 @@
     chmod +x *.sh
     clear;
 
-
 ### 2. 安裝 LAMP 套件成為網頁伺服器
 #### 這個步驟只適合還沒安裝Apache+MySQL+PHP，因此這個步驟最多只要執行一次
 
@@ -32,15 +31,6 @@
 #### 這個步驟引導你安裝 XOOPS ，一台伺服器可以安裝多個 XOOPS 網站
 
     ./xoops.sh
-
-#### 註：步驟 2 安裝 LAMP 套件過程中，為了可以同步資料庫到 Google 雲端，你需要開啟 Google 帳號做認證
-
-![grive -a](https://github.com/xichiou/lamp-xoops/blob/master/images/grive-a.png)
-
-    登入 Gmail，驗證 Grive，取得授權碼，再貼回上圖
-
-![允許](https://github.com/xichiou/lamp-xoops/blob/master/images/grive_auth.png)
-![取得授權碼](https://github.com/xichiou/lamp-xoops/blob/master/images/grive_auth-2.png)
 
 ---
 ## 其他腳本介紹
