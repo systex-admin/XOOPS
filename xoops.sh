@@ -23,9 +23,20 @@ cur_dir=`pwd`
 function getIP(){
     #IP=`ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[1-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\." | head -n 1`
     IP=`ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^10\.|^127\.|^255\." | head -n 1`
-    if [[ "$IP" = "" ]]; then
+    while [[ "$IP" == "" ]]; do
         IP=`curl -s -4 icanhazip.com`
-    fi
+        if [[ "$IP" != "" ]]; then
+            break
+        fi
+        IP=`curl -s -4 ipecho.net/plain`
+        if [[ "$IP" != "" ]]; then
+            break
+        fi
+        IP=`curl -s -4 ifconfig.me`
+        if [[ "$IP" != "" ]]; then
+            break
+        fi
+    done
 }
 
 getIP
