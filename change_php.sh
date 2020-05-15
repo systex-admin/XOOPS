@@ -21,6 +21,7 @@ fi
 # Pre-installation settings
 function pre_installation_settings(){
 
+
     # Choose PHP version
     while true
     do
@@ -30,9 +31,10 @@ function pre_installation_settings(){
     echo -e "\t\033[32m3\033[0m. 安裝 PHP-7.1"
     echo -e "\t\033[32m4\033[0m. 安裝 PHP-7.2"
     echo -e "\t\033[32m5\033[0m. 安裝 PHP-7.3"
-    echo -e "\t\033[32m6\033[0m. 離開"
-    read -p "請輸入數字:(或按下 ENTER 直接選擇 6 離開) " PHP_version
-    [ -z "$PHP_version" ] && PHP_version=6
+    echo -e "\t\033[32m6\033[0m. 安裝 PHP-7.4"
+    echo -e "\t\033[32m7\033[0m. 離開"
+    read -p "請輸入數字:(或按下 ENTER 直接選擇 7 離開) " PHP_version
+    [ -z "$PHP_version" ] && PHP_version=7
     case $PHP_version in
         1)
         #echo ""
@@ -77,6 +79,14 @@ function pre_installation_settings(){
         6)
         #echo ""
         echo "---------------------------"
+        echo "你選擇安裝 PHP-7.4"
+        echo "---------------------------"
+        #echo ""
+        break
+        ;;
+        7)
+        #echo ""
+        echo "---------------------------"
         echo "你選擇離開"
         echo "---------------------------"
         exit
@@ -84,7 +94,7 @@ function pre_installation_settings(){
         break
         ;;
         *)
-        echo $MSG_MUST_NUM "1,2,3,4,5,6"
+        echo $MSG_MUST_NUM "1,2,3,4,5,6,7"
     esac
     done
 
@@ -135,10 +145,17 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
-        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repoyys.d/remi-php72.repo
         sed -i '/php73]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php73.repo
     fi
 
+    if [ $PHP_version -eq 6 ]; then
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
+        sed -i '/php74]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php74.repo
+    fi
 
     yum -y remove php php-gd php-mysql php-mcrypt php-intl  php-common
     yum -y install php php-gd php-mysql php-mcrypt php-intl phpMyAdmin
