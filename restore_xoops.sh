@@ -4,7 +4,6 @@ export PATH
 
 SEARCH_PATH="/var/www/html"
 Restore_Xoops_DIR="/home/chc"
-CHC_IP=163.23.200.43
 
 
 function getIP_Public(){
@@ -55,15 +54,7 @@ function get_web_ip()
 {
   getIP_Public
   getIP
-  if [ "$IP_Public" = "$CHC_IP" ];then
-    WEB_PORT=$(echo $IP|cut -d"." -f 4)
-    WEB_PORT=$(($WEB_PORT))
-    WEB_PORT=$(($WEB_PORT+20000))
-    WEB_IP=${CHC_IP}:$WEB_PORT
-  else
-    WEB_IP=$IP_Public
-  fi
-
+  WEB_IP=$IP_Public
 }
 
 
