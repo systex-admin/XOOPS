@@ -12,17 +12,17 @@ function getIP_Public(){
   if [[ "$IP_Public" = "" ]]; then
       while [[ "$IP_Public" == "" ]]; do
         IP_Public=`curl -s -4 icanhazip.com`
-        if [[ "$IP" != "" ]]; then
+        if [[ "$IP_Public" != "" ]]; then
             break
         fi
 
         IP_Public=`curl -s -4 ipecho.net/plain`
-        if [[ "$IP" != "" ]]; then
+        if [[ "$IP_Public" != "" ]]; then
             break
         fi
 
         IP_Public=`curl -s -4 ifconfig.me`
-        if [[ "$IP" != "" ]]; then
+        if [[ "$IP_Public" != "" ]]; then
             break
         fi
     done
