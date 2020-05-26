@@ -114,6 +114,7 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php74.repo
         sed -i '/php56]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi.repo
     fi
 
@@ -122,6 +123,7 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php74.repo
         sed -i '/php70]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php70.repo
     fi
 
@@ -130,6 +132,7 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php74.repo
         sed -i '/php71]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php71.repo
     fi
 
@@ -138,6 +141,7 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php74.repo
         sed -i '/php72]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php72.repo
     fi
 
@@ -145,12 +149,14 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
-        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repoyys.d/remi-php72.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php74.repo
         sed -i '/php73]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php73.repo
     fi
 
     if [ $PHP_version -eq 6 ]; then
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
@@ -222,9 +228,6 @@ function show_version(){
 
     return $HAVE_ERROR
 }
-
-
-
 
 
 rootness
