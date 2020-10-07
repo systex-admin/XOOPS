@@ -45,7 +45,7 @@
 ## 其他腳本介紹
 #### 使用以下腳本前先切換到腳本目錄
 
-    cd /root/lamp-xoops-master
+    cd /root/XOOPS-master
 
 ### A. 切換 PHP 版本
 
@@ -63,10 +63,9 @@
 
 #### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/XOOPS
     ./upgrade_xoops.sh /var/www/html/XOOPS
-
+## < 本次範例放在網頁資料夾(/var/www/html)內的子目錄名稱為"XOOPS"裡面 >
 ---
 ### D. 顯示您現有的XOOPS網站的各項參數，方便移機用
-
     ./show_xoops_var.sh
 
 #### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/XOOPS
