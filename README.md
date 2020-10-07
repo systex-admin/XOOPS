@@ -63,7 +63,7 @@
 
 #### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/XOOPS
     ./upgrade_xoops.sh /var/www/html/XOOPS
-## < 本次範例放在網頁資料夾(/var/www/html)內的子目錄名稱為"XOOPS"裡面 >
+##### < 本次範例放在網頁資料夾(/var/www/html)內的子目錄名稱為"XOOPS"裡面 >
 ---
 ### D. 顯示您現有的XOOPS網站的各項參數，方便移機用
     ./show_xoops_var.sh
