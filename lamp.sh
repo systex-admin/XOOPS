@@ -19,14 +19,14 @@ function getIP(){
         if [[ "$IP" != "" ]]; then
             break
         fi
-        IP=`curl -s -4 ipecho.net/plain`
-        if [[ "$IP" != "" ]]; then
-            break
-        fi
-        IP=`curl -s -4 ifconfig.me`
-        if [[ "$IP" != "" ]]; then
-            break
-        fi
+        #IP=`curl -s -4 ipecho.net/plain`
+        #if [[ "$IP" != "" ]]; then
+        #    break
+        #fi
+        #IP=`curl -s -4 ifconfig.me`
+        #if [[ "$IP" != "" ]]; then
+        #    break
+        #fi
     done
 
 
@@ -239,14 +239,17 @@ function pre_installation_settings(){
     echo "按下任一按鍵開始安裝...或是按下 Ctrl+C 取消安裝"
     char=`get_char`
 
-
-    yum -y install unzip wget
-    yum -y install epel-release
+    #yum -y install unzip wget
+    #yum -y install epel-release
     #wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-    wget --no-check-certificate https://rpms.remirepo.net/enterprise/remi-release-7.rpm
-    rpm -Uvh remi-release-7*.rpm
-
-    
+    #wget --no-check-certificate https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    #rpm -Uvh remi-release-7*.rpm
+    yum install -y unzip wget yum-utils
+    wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    rpm -Uvh epel-release-latest-7.noarch.rpm
+    rpm -Uvh remi-release-7.rpm
+    sudo rm epel-release-latest-7.noarch.rpm remi-release-7.rpm
 
     if ! grep 'backup_db.sh' /etc/crontab; then
         cp include/backup_db.sh /root
@@ -255,7 +258,6 @@ function pre_installation_settings(){
         CRONTAB_M=$(($RANDOM % 60))
         echo "$CRONTAB_M $CRONTAB_H * * * root /root/backup_db.sh > /dev/null 2>&1" >>/etc/crontab
     fi
-
 
     yum -y install vim-enhanced
     echo "alias vi='vim'" >> /etc/profile
@@ -310,8 +312,7 @@ function install_mariadb(){
         cp include/MariaDB.repo /etc/yum.repos.d
     fi
 
-
-        yum -y install mariadb mariadb-server
+    yum -y install mariadb mariadb-server
 
     if [ $MariaDB_version -gt 1 ]; then
         # 關閉 STRICT 模式
@@ -347,19 +348,14 @@ EOF
 # Install PHP
 function install_php(){
     echo "開始安裝 PHP..."
-    
-    yum install -y wget yum-utils
-    wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-    wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-    rpm -Uvh epel-release-latest-7.noarch.rpm
-    rpm -Uvh remi-release-7.rpm
-    sudo rm epel-release-latest-7.noarch.rpm remi-release-7.rpm
 
     if [ $PHP_version -eq 1 ]; then
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php74.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php80.repo
         sed -i '/php56]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi.repo
     fi
 
@@ -368,6 +364,8 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php74.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php80.repo
         sed -i '/php70]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php70.repo
     fi
 
@@ -376,6 +374,8 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php74.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php80.repo
         sed -i '/php71]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php71.repo
     fi
 
@@ -384,6 +384,8 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php74.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php80.repo
         sed -i '/php72]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php72.repo
     fi
 
@@ -392,7 +394,29 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php74.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php80.repo
         sed -i '/php73]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php73.repo
+    fi
+    
+    if [ $PHP_version -eq 6 ]; then
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php80.repo
+        sed -i '/php74]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php74.repo
+    fi
+    
+    if [ $PHP_version -eq 7 ]; then
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php74.repo
+        sed -i '/php80]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php80.repo
     fi
 
     yum -y install php php-gd php-mysql php-mcrypt php-intl
