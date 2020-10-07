@@ -28,7 +28,7 @@
     wget --no-check-certificate https://github.com/systex-admin/XOOPS/archive/master.zip -O lamp-xoops.zip
     unzip -o lamp-xoops.zip
     rm -f lamp-xoops.zip
-    cd lamp-xoops-master/
+    cd XOOPS-master/
     chmod +x *.sh
 
 ### 2. 安裝 LAMP 套件成為網頁伺服器
