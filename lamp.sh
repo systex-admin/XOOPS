@@ -113,8 +113,10 @@ function pre_installation_settings(){
     echo -e "\t\033[32m3\033[0m. 安裝 PHP-7.1"
     echo -e "\t\033[32m4\033[0m. 安裝 PHP-7.2"
     echo -e "\t\033[32m5\033[0m. 安裝 PHP-7.3"
-    read -p "請輸入數字:(或按下 ENTER 直接選擇 5) " PHP_version
-    [ -z "$PHP_version" ] && PHP_version=5
+    echo -e "\t\033[32m6\033[0m. 安裝 PHP-7.4"
+    echo -e "\t\033[32m7\033[0m. 安裝 PHP-8.0"
+    read -p "請輸入數字:(或按下 ENTER 直接選擇 7) " PHP_version
+    [ -z "$PHP_version" ] && PHP_version=7
     case $PHP_version in
         1)
         #echo ""
@@ -156,8 +158,24 @@ function pre_installation_settings(){
         #echo ""
         break
         ;;
+        6)
+        #echo ""
+        echo "---------------------------"
+        echo "你選擇安裝 PHP-7.4"
+        echo "---------------------------"
+        #echo ""
+        break
+        ;;
+        7)
+        #echo ""
+        echo "---------------------------"
+        echo "你選擇安裝 PHP-8.0"
+        echo "---------------------------"
+        #echo ""
+        break
+        ;;
         *)
-        echo $MSG_MUST_NUM "1,2,3,4,5"
+        echo $MSG_MUST_NUM "1,2,3,4,5,6,7"
     esac
     done
 
@@ -215,79 +233,7 @@ function pre_installation_settings(){
         stty echo
         stty $SAVEDSTTY
     }
-
-
-    # disable_ipv6 ?
-    #while true
-    #do
-    #read -p "關閉這台伺服器 IPV6 網路功能，你要關閉? [y/n]" ANSER
-    #case $ANSER in
-    #    y|Y)
-    #    echo "-----------------------------"
-    #    echo "你選擇關閉這台伺服器 IPV6 的網路!"
-    #    echo "-----------------------------"
-    #    disable_ipv6
-    #    break
-    #    ;;
-    #    n|N)
-    #    break
-    #    ;;
-    #    *)
-    #    echo "請輸入 Y 或 N"
-    #    echo ""
-    #esac
-    #done
-    #echo ""
-    #echo ""
-
-
-    # Install Samba ?
-    while true
-    do
-    read -p "使用網路芳鄰嗎? [y/n]" ANSER
-    case $ANSER in
-        y|Y)
-        use_samba="Y"
-        echo "-------------------------------------"
-        echo "你選擇啟用網路芳鄰!                     "
-        echo "-------------------------------------"
-        break
-        ;;
-        n|N)
-        use_samba="N"
-        break
-        ;;
-        *)
-        echo "請輸入 Y 或 N"
-        echo ""
-    esac
-    done
-    echo ""
-    echo ""
-
-
-    # Google Drive ?
-    while true
-    do
-    read -p "使用 Google 雲端硬碟備份你的資料庫嗎? [y/n]" ANSER
-    case $ANSER in
-        y|Y)
-        use_grive="Y"
-        echo "-------------------------------------"
-        echo "你選擇使用 Google 雲端硬碟備份你的資料庫 !"
-        echo "-------------------------------------"
-        break
-        ;;
-        n|N)
-        use_grive="N"
-        break
-        ;;
-        *)
-        echo "請輸入 Y 或 N"
-        echo ""
-    esac
-    done
-
+  
     echo ""
     echo ""
     echo "按下任一按鍵開始安裝...或是按下 Ctrl+C 取消安裝"
@@ -300,41 +246,7 @@ function pre_installation_settings(){
     wget --no-check-certificate https://rpms.remirepo.net/enterprise/remi-release-7.rpm
     rpm -Uvh remi-release-7*.rpm
 
-    if [ $use_grive = "Y" ]
-    then
-      yum -y install grive2
-      clear
-      echo ""
-      echo ""
-      echo "設定資料庫備份執行檔 backup_db.sh"
-      sed "s/\/root\/DB_Backup/\/root\/DB_Backup\/$IP\/MySQL/g" include/backup_db.sh_>include/backup_db.sh
-      sed -i "s/#\/usr\/bin\/grive/\/usr\/bin\/grive -s $IP/g" include/backup_db.sh
-      echo "資料備份在 /root/DB_Backup/$IP/MySQL"
-      mkdir "/root/DB_Backup/$IP/MySQL" -p
-      mkdir "/root/DB_Backup/$IP/html" -p
-      echo "準備認證 Google雲端硬碟，請"
-      echo "參考網站說明操作 https://github.com/xichiou/lamp-xoops"
-
-      cd /root/DB_Backup
-
-      while true
-      do
-        /usr/bin/grive -V -a -s $IP
-        if [ $? = 0 ]
-        then
-         echo "Google 雲端硬碟認證成功!"
-         sleep 5
-         break
-        fi
-        echo ""
-        echo "認證失敗，請重新認證，或是按下 Ctrl+C 取消安裝"
-      done
-
-      cd -
-      #echo ""
-      #echo "如果看到上面有 sync \"./$IP\" 的訊息，表示備份到 Google雲端硬碟 的設定是成功的 !!"
-      #sleep 5
-    fi
+    
 
     if ! grep 'backup_db.sh' /etc/crontab; then
         cp include/backup_db.sh /root
@@ -435,6 +347,13 @@ EOF
 # Install PHP
 function install_php(){
     echo "開始安裝 PHP..."
+    
+    yum install -y wget yum-utils
+    wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    rpm -Uvh epel-release-latest-7.noarch.rpm
+    rpm -Uvh remi-release-7.rpm
+    sudo rm epel-release-latest-7.noarch.rpm remi-release-7.rpm
 
     if [ $PHP_version -eq 1 ]; then
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
