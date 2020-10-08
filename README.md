@@ -4,7 +4,7 @@
 #### 1. 安裝完成 LAMP 自動安裝腳本
 #### 2. 安裝完成 XOOPS 自動安裝腳本
 #### 3. XOOPS網頁的環境、使用者帳號、模組(一定要安裝 TadTools 模組)、資料庫等等設定完成 (在設置URL設定中可預先設定外部IP)
-#### 4. XOOPS TadTools 需要 2.9.9 以上的版本
+#### 4. XOOPS TadTools 需要 1.17 以上版本
 
 ### 操作步驟：
 #### 1. 下載 GitHub systex-admin/XOOPS/mainfile.php 到 linux 路徑裡面
