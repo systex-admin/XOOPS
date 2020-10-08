@@ -17,7 +17,8 @@
     # mkdir -p /root/smarty_cache
     # mv /var/www/xoops_data/caches/smarty_cache/* /root/smarty_cache/
 or
-    # sudo rm /var/www/xoops_data/caches/smarty_cache/*
+
+    # sudo rm  /var/www/xoops_data/caches/smarty_cache/*
 
 #### 3. 測試內網IP和外網IP是否都可以連進網頁
 
