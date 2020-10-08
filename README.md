@@ -11,6 +11,7 @@
     # cd /root
     # wget https://raw.githubusercontent.com/systex-admin/XOOPS/master/mainfile.php
     # cp /var/www/html/mainfile.php /var/www/html/mainfile.php.bk
+    # cp /root/mainfile.php /var/www/html/mainfile.php
     # chown -R apache:apache /var/www/html/mainfile.php
     # chmod 444 /var/www/html/mainfile.php
 #### 2. 清除 XOOPS Cache
