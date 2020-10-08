@@ -1,4 +1,27 @@
-## [ 2020-05-26 updates ]
+## [2020-10 UPDATE]
+* XOOPS自動取得URL
+## 需求：
+### 1. 安裝完成 LAMP 自動安裝腳本
+### 2. 安裝完成 XOOPS 自動安裝腳本
+### 3. XOOPS網頁的環境、使用者帳號、模組、資料庫等等設定完成 (在設置URL設定中可預先設定外部IP)
+
+## 操作步驟：
+### 1. 下載 GitHub systex-admin/XOOPS/mainfile.php 到 linux 路徑裡面
+    # sudo su
+    # cd /root
+    # wget https://raw.githubusercontent.com/systex-admin/XOOPS/master/mainfile.php
+    # cp /var/www/html/mainfile.php /var/www/html/mainfile.php.bk
+    # chown -R apache:apache /var/www/html/mainfile.php
+    # chmod 444 /var/www/html/mainfile.php
+### 2. 清除 XOOPS Cache
+    # mkdir -p /root/smarty_cache
+    # mv /var/www/xoops_data/caches/smarty_cache/* /root/smarty_cache/
+or
+    # sudo rm /var/www/xoops_data/caches/smarty_cache/*
+
+### 3. 測試內網IP和外網IP是否都可以連進網頁
+
+## [ 2020-05 UPDATE ]
 * 提供 PHP 5.6、 7.0、 7.1、 7.2 、 7.3 和 7.4 六種版本供你選擇安裝
 * 提供 架站 XOOPS 路徑內，全部替換 URL 腳本
 
